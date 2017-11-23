@@ -24,6 +24,14 @@ describe('MealBase', () => {
     expect(() => new MealBase(50, { gluten: -1 })).to.throw('with negative meals');
   });
 
+  it('should throw an exception if a specialized meal exceed total meals', () => {
+    // The sum of specialized may exceed the total, since either of them can be
+    // fully ordered, but a single specialized meal cannot exceed the total.
+    expect(() => new MealBase(1, { veggie: 2 })).to.throw('exceed total meals');
+    expect(() => new MealBase(1, { gluten: 2 })).to.throw('exceed total meals');
+    expect(() => new MealBase(2, { veggie: 2, gluten: 2 })).to.not.throw();
+  });
+
   it('should only allow ordering specific meals', () => {
     const base = new MealBase(50);
     expect(() => base.orderMeal()).to.not.throw();

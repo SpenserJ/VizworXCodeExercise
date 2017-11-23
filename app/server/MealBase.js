@@ -7,6 +7,9 @@ export default class MealBase {
     if (meals < 0 || veggie < 0 || gluten < 0) {
       throw new Error(`Cannot instantiate ${this.constructor.name} with negative meals`);
     }
+    if (veggie > meals) { throw new Error('Veggie meals cannot exceed total meals'); }
+    if (gluten > meals) { throw new Error('Gluten meals cannot exceed total meals'); }
+
     this._meals = meals;
     this._veggie = veggie;
     this._gluten = gluten;
