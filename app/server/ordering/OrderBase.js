@@ -6,7 +6,9 @@ export default class OrderBase extends MealBase {
     super(otherMeals + veggie + gluten, { veggie, gluten });
   }
 
-  getRemainingOther() { return this._meals - this._veggie - this._gluten; }
+  getRemainingOther() {
+    return this.getRemainingMeals() - this.getRemainingVeggie() - this.getRemainingGluten();
+  }
 
   orderMeal(restaurant, specialized = false) {
     let remaining = 0;

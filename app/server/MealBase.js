@@ -1,3 +1,7 @@
+function capFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export default class MealBase {
   constructor(meals, { veggie = 0, gluten = 0 } = {}) {
     if (meals < 0 || veggie < 0 || gluten < 0) {
@@ -9,11 +13,14 @@ export default class MealBase {
   }
 
   getRemainingMeals() { return this._meals; }
-  getRemainingVeggie() { return this._veggie; }
-  getRemainingGluten() { return this._gluten; }
+  getRemainingVeggie() { return Math.min(this._meals, this._veggie); }
+  getRemainingGluten() { return Math.min(this._meals, this._gluten); }
 
   orderMeal(specialized = false) {
-    if (this._meals <= 0) { return false; }
+    if (this.getRemainingMeals() <= 0) { return false; }
+    if (specialized !== false && this[`getRemaining${capFirstLetter(specialized)}`]() <= 0) {
+      return false;
+    }
     this._meals -= 1;
     if (specialized === 'veggie') {
       this._veggie -= 1;
