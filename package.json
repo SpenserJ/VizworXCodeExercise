@@ -1,0 +1,32 @@
+{
+  "name": "vizworxcodeexercise",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app/server/index.mjs",
+  "scripts": {
+    "dev:server": "nodemon --experimental-modules app/server/index.mjs",
+    "lint": "eslint app/**/*",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpenserJ/VizworXCodeExercise.git"
+  },
+  "author": "Spenser Jones <hello@spenserj.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SpenserJ/VizworXCodeExercise/issues"
+  },
+  "homepage": "https://github.com/SpenserJ/VizworXCodeExercise#readme",
+  "devDependencies": {
+    "eslint": "^4.11.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "nodemon": "^1.12.1"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "app/client/*"
+    ]
+  }
+}
