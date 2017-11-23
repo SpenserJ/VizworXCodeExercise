@@ -4,9 +4,11 @@
   "description": "",
   "main": "app/server/index.mjs",
   "scripts": {
-    "dev:server": "nodemon --experimental-modules app/server/index.mjs",
-    "lint": "eslint app/**/*",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:server": "nodemon --exec babel-node app/server/index.mjs",
+    "lint": "eslint app/**/*.*js* test/**/*.*js*",
+    "lint:watch": "nodemon --exec \"npm run lint || true\"",
+    "test": "mocha --compilers js:babel-core/register ./test/**/*.*js*",
+    "test:watch": "nodemon --exec \"npm run test || true\""
   },
   "repository": {
     "type": "git",
@@ -19,14 +21,19 @@
   },
   "homepage": "https://github.com/SpenserJ/VizworXCodeExercise#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
     "eslint": "^4.11.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
+    "mocha": "^4.0.1",
     "nodemon": "^1.12.1"
   },
   "nodemonConfig": {
     "ignore": [
       "app/client/*"
-    ]
+    ],
+    "ext": "js jsx mjs"
   }
 }
