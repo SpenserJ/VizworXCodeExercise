@@ -16,18 +16,22 @@ app.post('/computeOrder', (req, res) => {
     ));
 
     const order = new OrderBruteForce(
-      // Input is the total number of meals, but our order system calculates the number of other meals
-      // Subtract all of the special meals from the total before instantiating the class
+      // Input is the total number of meals, but our order system calculates the number of other
+      // meals. Subtract all of the special meals from the total before instantiating the class
       input.requirements.total
         - Object.values(input.requirements.specialization).reduce((acc, v) => (acc + v), 0),
       input.requirements.specialization,
     );
 
     const result = order.calculateOrders(...restaurants);
-    res.json(result);
+    if (result === false) {
+      res.send({ error: 'Unable to calculate a set of orders that meet the conditions' });
+    } else {
+      res.json(result);
+    }
   } catch (e) {
     res.json({ error: e.message });
-    console.log(e);
+    console.log(e); // eslint-disable-line no-console
   }
 });
 

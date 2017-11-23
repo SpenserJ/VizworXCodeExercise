@@ -24,7 +24,7 @@ export default class MealRequirements extends React.PureComponent {
 
   render() {
     return (
-      <div>
+      <div className="pageSplit">
         <h2>Meal Requirements</h2>
         <label htmlFor="totalMeals">
           <span>Total Meals</span>

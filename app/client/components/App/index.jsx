@@ -72,29 +72,38 @@ export default class App extends React.PureComponent {
 
   render() {
     const { value, status } = this.state;
+    let output = null;
+    if (status.pending === false && Object.keys(status.result).length !== 0) {
+      output = status.error
+        ? <span className="error">{status.result.error}</span>
+        : <pre>{JSON.stringify(status.result, null, '  ')}</pre>;
+    }
     return (
       <div>
         <h1>VizworX Code Exercise</h1>
-        <MealRequirements
-          name="requirements"
-          onChange={this.onChange}
-          value={value.get('requirements')}
-        />
-        <Restaurants
-          name="restaurants"
-          onChange={this.onChange}
-          value={value.get('restaurants')}
-        />
+        <div className="container">
+          <MealRequirements
+            name="requirements"
+            onChange={this.onChange}
+            value={value.get('requirements')}
+          />
+          <Restaurants
+            name="restaurants"
+            onChange={this.onChange}
+            value={value.get('restaurants')}
+          />
+        </div>
         <h2>Results</h2>
-        <input
-          type="submit"
-          value="Optimize meals"
-          onClick={this.submit}
-          disabled={status.pending}
-        />
-        {status.error
-          ? <span className="error">{status.result.error}</span>
-          : <pre>{JSON.stringify(status.result, null, '\t')}</pre>}
+        {status.pending
+          ? <span className="spinner" />
+          : (
+            <input
+              type="submit"
+              value="Optimize meals"
+              onClick={this.submit}
+            />
+          )}
+        {output}
       </div>
     );
   }

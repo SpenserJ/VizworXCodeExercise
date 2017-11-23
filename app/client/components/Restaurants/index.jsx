@@ -24,7 +24,7 @@ export default class Restaurants extends React.PureComponent {
 
   render() {
     return (
-      <div>
+      <div className="pageSplit">
         <h2>Restaurants</h2>
         <table border="1">
           <thead>
