@@ -2,11 +2,11 @@
 import { expect } from 'chai';
 
 // Mark tests as a dependency, so that they execute first
-import '../unit/app/server/MealBase';
-import '../unit/app/server/Restaurant';
+import '../MealBase';
+import '../Restaurant';
 
-import OrderBase from '../../app/server/ordering/OrderBase';
-import Restaurant from '../../app/server/Restaurant';
+import OrderBase from '../../../../../app/server/ordering/OrderBase';
+import Restaurant from '../../../../../app/server/Restaurant';
 
 describe('Order Base', () => {
   it('should properly calculate remaining meals', () => {

@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 
 // Mark tests as a dependency, so that they execute first
-import './OrderBase';
+import '../unit/app/server/ordering/OrderBase';
 
 import OrderBruteForce from '../../app/server/ordering/OrderBruteForce';
 import Restaurant from '../../app/server/Restaurant';
