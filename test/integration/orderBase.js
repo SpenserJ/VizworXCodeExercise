@@ -65,4 +65,16 @@ describe('Order Base', () => {
     expect(restaurant.getRemainingGluten()).to.equal(0);
     expect(restaurant.getRemainingMeals()).to.equal(0);
   });
+
+  it('should throw an exception when calling calculateOrders', () => {
+    const order = new OrderBase(1);
+    const restaurant = new Restaurant('Test', 3, { veggie: 1, gluten: 1 });
+    expect(() => order.calculateOrders()).to.throw(TypeError, 'Not enough restaurants provided');
+    expect(() => order.calculateOrders([])).to.throw(TypeError, 'Not enough restaurants provided');
+    expect(() => order.calculateOrders([1])).to.throw(TypeError, 'Not enough restaurants provided');
+    expect(() => order.calculateOrders(restaurant)).to.throw(TypeError, 'Not enough restaurants provided');
+    expect(() => order.calculateOrders(1, restaurant)).to.throw(TypeError, 'Invalid restaurants provided');
+    expect(() => order.calculateOrders([restaurant, restaurant])).to.throw('not implemented');
+    expect(() => order.calculateOrders(restaurant, restaurant)).to.throw('not implemented');
+  });
 });
