@@ -7,7 +7,7 @@
     "dev:server": "nodemon --exec babel-node app/server/index.js",
     "lint": "eslint app/**/*.*js* test/**/*.js*",
     "lint:watch": "nodemon --exec \"npm run lint || true\"",
-    "test": "mocha --compilers js:babel-core/register ./test/**/*.js*",
+    "test": "mocha --require babel-core/register ./test/**/*.js*",
     "test:watch": "nodemon --exec \"npm run test || true\""
   },
   "repository": {
