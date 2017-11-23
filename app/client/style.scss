@@ -1,1 +1,6 @@
-body {}
+label {
+  display: block;
+  > span {
+    padding-right: 8px;
+  }
+}
