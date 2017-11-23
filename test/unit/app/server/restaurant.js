@@ -1,7 +1,8 @@
 /* eslint-env mocha */
 import { expect } from 'chai';
 
-import Restaurant from '../../../../app/server/restaurant';
+
+import Restaurant from '../../../../app/server/Restaurant';
 
 describe('Restaurant', () => {
   it('should instantiate with no specialized meals', () => {
@@ -18,10 +19,12 @@ describe('Restaurant', () => {
     expect(restaurant.getRemainingGluten()).to.equal(7);
   });
 
-  it('should throw an exception if instantiated with negative meals', () => {
-    expect(() => new Restaurant('Test', -1)).to.throw();
-    expect(() => new Restaurant('Test', 50, { veggie: -1 })).to.throw();
-    expect(() => new Restaurant('Test', 50, { gluten: -1 })).to.throw();
+  it('should update when a meal is ordered', () => {
+    const restaurant = new Restaurant('Test', 50, { veggie: 5, gluten: 7 });
+    restaurant.orderMeal();
+    expect(restaurant.getRemainingMeals()).to.equal(49);
+    expect(restaurant.getRemainingVeggie()).to.equal(5);
+    expect(restaurant.getRemainingGluten()).to.equal(7);
   });
 
   it('should update when a veggie meal is ordered', () => {

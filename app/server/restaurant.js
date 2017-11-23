@@ -1,17 +1,10 @@
-export default class Restaurant {
-  constructor(name, meals, { veggie = 0, gluten = 0 } = {}) {
-    if (meals < 0 || veggie < 0 || gluten < 0) {
-      throw new Error('Cannot instantiate Restaurant with negative meals');
-    }
-    this._name = name;
-    this._meals = meals;
-    this._veggie = veggie;
-    this._gluten = gluten;
-  }
+import MealBase from './MealBase';
 
-  getRemainingMeals() { return this._meals; }
-  getRemainingVeggie() { return this._veggie; }
-  getRemainingGluten() { return this._gluten; }
+export default class Restaurant extends MealBase {
+  constructor(name, meals, specialized) {
+    super(meals, specialized);
+    this._name = name;
+  }
 
   orderMeal(specialized = false) {
     if (this._meals <= 0) { return false; }
