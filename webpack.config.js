@@ -1,7 +1,15 @@
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+// Hacky way of quickly loading in .babelrc as JSON
+const babelOptions = JSON.parse(fs.readFileSync('./.babelrc', 'utf8'));
+// Turn off babel module transpilation for react-hot-loader
+babelOptions.presets[0][1].modules = false;
+babelOptions.presets.push('react');
+babelOptions.plugins.unshift('react-hot-loader/babel');
 
 module.exports = {
   entry: [
@@ -12,7 +20,7 @@ module.exports = {
     contentBase: './dist',
     hot: true,
     proxy: {
-      '/process': 'http://localhost:8081',
+      '/computeOrder': 'http://localhost:8081',
     },
   },
   plugins: [
@@ -35,6 +43,7 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
+          options: babelOptions,
         },
       },
       { test: /\.s?css$/, use: ['style-loader', 'css-loader', 'sass-loader'] },

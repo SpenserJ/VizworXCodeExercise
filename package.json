@@ -5,7 +5,7 @@
   "main": "app/server/index.js",
   "scripts": {
     "dev:browser": "webpack-dev-server",
-    "dev:server": "nodemon --exec babel-node app/server/index.js",
+    "dev:server": "nodemon --ignore app/client/ --exec babel-node app/server/index.js",
     "lint": "eslint app/**/*.*js* test/**/*.js*",
     "lint:watch": "nodemon --exec \"npm run lint || true\"",
     "start": "babel-node app/server/index.js",
@@ -53,10 +53,11 @@
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.4"
   },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2"
+  },
   "nodemonConfig": {
-    "ignore": [
-      "app/client/*"
-    ],
-    "ext": "js jsx mjs"
+    "ext": "js jsx scss"
   }
 }

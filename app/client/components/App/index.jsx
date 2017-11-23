@@ -29,7 +29,7 @@ export default class App extends React.PureComponent {
           },
         },
       }),
-      request: {
+      status: {
         pending: false,
         error: false,
         result: {},
@@ -44,39 +44,57 @@ export default class App extends React.PureComponent {
   submit = (e) => {
     e.preventDefault();
     this.setState({
-      request: {
+      status: {
         pending: true,
         error: false,
         result: {},
       },
     });
-    console.log('Submitting to server', this.state.value.toJS());
+    fetch('/computeOrder', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.state.value.toJS()),
+    })
+      .then(response => response.json())
+      .then((result) => {
+        this.setState({
+          status: {
+            pending: false,
+            error: !!result.error,
+            result,
+          },
+        });
+      });
   }
 
   render() {
+    const { value, status } = this.state;
     return (
       <div>
         <h1>VizworX Code Exercise</h1>
         <MealRequirements
           name="requirements"
           onChange={this.onChange}
-          value={this.state.value.get('requirements')}
+          value={value.get('requirements')}
         />
         <Restaurants
           name="restaurants"
           onChange={this.onChange}
-          value={this.state.value.get('restaurants')}
+          value={value.get('restaurants')}
         />
         <h2>Results</h2>
         <input
           type="submit"
           value="Optimize meals"
           onClick={this.submit}
-          disabled={this.state.request.pending}
+          disabled={status.pending}
         />
-        {this.state.request.error
-          ? <span className="error">{this.state.request.result.error}</span>
-          : <pre>{JSON.stringify(this.state.request.result, null, '\t')}</pre>}
+        {status.error
+          ? <span className="error">{status.result.error}</span>
+          : <pre>{JSON.stringify(status.result, null, '\t')}</pre>}
       </div>
     );
   }

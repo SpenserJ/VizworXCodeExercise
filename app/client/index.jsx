@@ -1,4 +1,3 @@
-/* eslint-env browser */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
@@ -20,5 +19,7 @@ render(App);
 
 // Webpack Hot Module Replacement API
 if (module.hot) {
-  module.hot.accept('./components/App/', () => render(App));
+  module.hot.accept('./components/App/', () =>
+    // FIXME: Re-require workaround for components not hot-reloading properly
+    render(require('./components/App/').default)); // eslint-disable-line global-require
 }
