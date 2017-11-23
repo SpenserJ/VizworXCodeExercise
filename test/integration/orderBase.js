@@ -46,14 +46,23 @@ describe('Order Base', () => {
     const order = new OrderBase(1, { veggie: 1, gluten: 1 });
     const restaurant = new Restaurant('Test', 3, { veggie: 1, gluten: 1 });
     expect(order.getRemainingMeals()).to.equal(3);
+    expect(restaurant.getRemainingMeals()).to.equal(3);
+
     expect(order.orderMeal(restaurant)).to.equal(true);
     expect(order.getRemainingOther()).to.equal(0);
     expect(order.getRemainingMeals()).to.equal(2);
+    expect(restaurant.getRemainingMeals()).to.equal(2);
+
     expect(order.orderMeal(restaurant, 'veggie')).to.equal(true);
     expect(order.getRemainingVeggie()).to.equal(0);
     expect(order.getRemainingMeals()).to.equal(1);
+    expect(restaurant.getRemainingVeggie()).to.equal(0);
+    expect(restaurant.getRemainingMeals()).to.equal(1);
+
     expect(order.orderMeal(restaurant, 'gluten')).to.equal(true);
     expect(order.getRemainingGluten()).to.equal(0);
     expect(order.getRemainingMeals()).to.equal(0);
+    expect(restaurant.getRemainingGluten()).to.equal(0);
+    expect(restaurant.getRemainingMeals()).to.equal(0);
   });
 });
