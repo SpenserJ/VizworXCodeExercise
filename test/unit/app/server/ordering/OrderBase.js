@@ -19,7 +19,7 @@ describe('Order Base', () => {
 
   it('should only allow ordering specific meals', () => {
     const order = new OrderBase(50);
-    const restaurant = new Restaurant('Test', 50, { veggie: 1, gluten: 1 });
+    const restaurant = new Restaurant('Test', 3, 50, { veggie: 1, gluten: 1 });
     expect(() => order.orderMeal(restaurant)).to.not.throw();
     expect(() => order.orderMeal(restaurant, 'veggie')).to.not.throw();
     expect(() => order.orderMeal(restaurant, 'gluten')).to.not.throw();
@@ -28,7 +28,7 @@ describe('Order Base', () => {
 
   it('should not order a meal if the restaurant is out of stock', () => {
     const order = new OrderBase(50);
-    const restaurant = new Restaurant('Test', 0);
+    const restaurant = new Restaurant('Test', 3, 0);
     expect(order.orderMeal(restaurant)).to.equal(false);
     expect(order.orderMeal(restaurant, 'veggie')).to.equal(false);
     expect(order.orderMeal(restaurant, 'gluten')).to.equal(false);
@@ -36,7 +36,7 @@ describe('Order Base', () => {
 
   it('should not order a meal if it isn\'t required', () => {
     const order = new OrderBase(0);
-    const restaurant = new Restaurant('Test', 50);
+    const restaurant = new Restaurant('Test', 3, 50);
     expect(order.orderMeal(restaurant)).to.equal(false);
     expect(order.orderMeal(restaurant, 'veggie')).to.equal(false);
     expect(order.orderMeal(restaurant, 'gluten')).to.equal(false);
@@ -44,7 +44,7 @@ describe('Order Base', () => {
 
   it('should update the number of remaining meals when an order succeeds', () => {
     const order = new OrderBase(1, { veggie: 1, gluten: 1 });
-    const restaurant = new Restaurant('Test', 3, { veggie: 1, gluten: 1 });
+    const restaurant = new Restaurant('Test', 3, 3, { veggie: 1, gluten: 1 });
     expect(order.getRemainingMeals()).to.equal(3);
     expect(restaurant.getRemainingMeals()).to.equal(3);
 
@@ -68,7 +68,7 @@ describe('Order Base', () => {
 
   it('should throw an exception when calling calculateOrders', () => {
     const order = new OrderBase(1);
-    const restaurant = new Restaurant('Test', 3, { veggie: 1, gluten: 1 });
+    const restaurant = new Restaurant('Test', 3, 3, { veggie: 1, gluten: 1 });
     expect(() => order.calculateOrders()).to.throw(TypeError, 'Not enough restaurants provided');
     expect(() => order.calculateOrders([])).to.throw(TypeError, 'Not enough restaurants provided');
     expect(() => order.calculateOrders([1])).to.throw(TypeError, 'Not enough restaurants provided');

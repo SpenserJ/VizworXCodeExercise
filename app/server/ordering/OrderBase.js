@@ -38,7 +38,7 @@ export default class OrderBase extends MealBase {
       throw new Error(`"calculateOrders" is not implemented in ${this.constructor.name}`);
     }
 
-    // Return the flattened restaurants;
-    return restaurants;
+    // Return the flattened restaurants after sorting by rating;
+    return restaurants.sort((a, b) => b.getRating() - a.getRating());
   }
 }
