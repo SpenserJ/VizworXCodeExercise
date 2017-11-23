@@ -17,6 +17,15 @@ describe('Order Base', () => {
     expect(order.getRemainingGluten()).to.equal(1);
   });
 
+  it('should only allow ordering specific meals', () => {
+    const order = new OrderBase(50);
+    const restaurant = new Restaurant('Test', 50, { veggie: 1, gluten: 1 });
+    expect(() => order.orderMeal(restaurant)).to.not.throw();
+    expect(() => order.orderMeal(restaurant, 'veggie')).to.not.throw();
+    expect(() => order.orderMeal(restaurant, 'gluten')).to.not.throw();
+    expect(() => order.orderMeal(restaurant, 'random')).to.throw('Cannot order unsupported');
+  });
+
   it('should not order a meal if the restaurant is out of stock', () => {
     const order = new OrderBase(50);
     const restaurant = new Restaurant('Test', 0);

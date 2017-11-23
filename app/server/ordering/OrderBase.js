@@ -1,4 +1,4 @@
-import MealBase from '../MealBase';
+import MealBase, { capFirstLetter, allowedMeals } from '../MealBase';
 
 export default class OrderBase extends MealBase {
   constructor(otherMeals, { veggie = 0, gluten = 0 } = {}) {
@@ -10,15 +10,11 @@ export default class OrderBase extends MealBase {
     return this.getRemainingMeals() - this.getRemainingVeggie() - this.getRemainingGluten();
   }
 
-  orderMeal(restaurant, specialized = false) {
-    let remaining = 0;
-    switch (specialized) {
-      case false: remaining = this.getRemainingOther(); break;
-      case 'veggie': remaining = this.getRemainingVeggie(); break;
-      case 'gluten': remaining = this.getRemainingGluten(); break;
-      default: break;
+  orderMeal(restaurant, specialized = 'other') {
+    if (allowedMeals.includes(specialized) === false) {
+      throw new Error(`Cannot order unsupported "${specialized}" meal`);
     }
-
+    const remaining = this[`getRemaining${capFirstLetter(specialized)}`]();
     if (remaining <= 0) { return false; }
     if (restaurant.orderMeal(specialized) === false) { return false; }
     super.orderMeal(specialized);

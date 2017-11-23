@@ -19,9 +19,17 @@ describe('MealBase', () => {
   });
 
   it('should throw an exception if instantiated with negative meals', () => {
-    expect(() => new MealBase(-1)).to.throw();
-    expect(() => new MealBase(50, { veggie: -1 })).to.throw();
-    expect(() => new MealBase(50, { gluten: -1 })).to.throw();
+    expect(() => new MealBase(-1)).to.throw('with negative meals');
+    expect(() => new MealBase(50, { veggie: -1 })).to.throw('with negative meals');
+    expect(() => new MealBase(50, { gluten: -1 })).to.throw('with negative meals');
+  });
+
+  it('should only allow ordering specific meals', () => {
+    const base = new MealBase(50);
+    expect(() => base.orderMeal()).to.not.throw();
+    expect(() => base.orderMeal('veggie')).to.not.throw();
+    expect(() => base.orderMeal('gluten')).to.not.throw();
+    expect(() => base.orderMeal('random')).to.throw('Cannot order unsupported');
   });
 
   it('should not allow ordering specialized meals when none are available', () => {
