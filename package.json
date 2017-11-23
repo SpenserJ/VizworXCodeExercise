@@ -2,12 +2,12 @@
   "name": "vizworxcodeexercise",
   "version": "1.0.0",
   "description": "",
-  "main": "app/server/index.mjs",
+  "main": "app/server/index.js",
   "scripts": {
-    "dev:server": "nodemon --exec babel-node app/server/index.mjs",
-    "lint": "eslint app/**/*.*js* test/**/*.*js*",
+    "dev:server": "nodemon --exec babel-node app/server/index.js",
+    "lint": "eslint app/**/*.*js* test/**/*.js*",
     "lint:watch": "nodemon --exec \"npm run lint || true\"",
-    "test": "mocha --compilers js:babel-core/register ./test/**/*.*js*",
+    "test": "mocha --compilers js:babel-core/register ./test/**/*.js*",
     "test:watch": "nodemon --exec \"npm run test || true\""
   },
   "repository": {
