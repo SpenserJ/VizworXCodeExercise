@@ -29,12 +29,29 @@ export default class App extends React.PureComponent {
           },
         },
       }),
+      request: {
+        pending: false,
+        error: false,
+        result: {},
+      },
     };
   }
 
   onChange = e => this.setState({
     value: this.state.value.setIn(e.target.name, e.target.value),
   });
+
+  submit = (e) => {
+    e.preventDefault();
+    this.setState({
+      request: {
+        pending: true,
+        error: false,
+        result: {},
+      },
+    });
+    console.log('Submitting to server', this.state.value.toJS());
+  }
 
   render() {
     return (
@@ -50,6 +67,16 @@ export default class App extends React.PureComponent {
           onChange={this.onChange}
           value={this.state.value.get('restaurants')}
         />
+        <h2>Results</h2>
+        <input
+          type="submit"
+          value="Optimize meals"
+          onClick={this.submit}
+          disabled={this.state.request.pending}
+        />
+        {this.state.request.error
+          ? <span className="error">{this.state.request.result.error}</span>
+          : <pre>{JSON.stringify(this.state.request.result, null, '\t')}</pre>}
       </div>
     );
   }

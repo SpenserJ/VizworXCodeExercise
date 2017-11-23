@@ -40,10 +40,46 @@ export default class Restaurants extends React.PureComponent {
             {this.props.value.entrySeq().map(([name, data]) => (
               <tr key={name}>
                 <td>{name}</td>
-                <td>{data.get('total')}</td>
-                <td>{data.getIn(['specialization', 'veggie'], 0)}</td>
-                <td>{data.getIn(['specialization', 'gluten'], 0)}</td>
-                <td>{data.get('rating')}</td>
+                <td>
+                  <input
+                    type="number"
+                    min="0"
+                    max="1000"
+                    name={`${name}|total`}
+                    onChange={this.onChange}
+                    value={data.get('total')}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    min="0"
+                    max="1000"
+                    name={`${name}|specialization|veggie`}
+                    onChange={this.onChange}
+                    value={data.getIn(['specialization', 'veggie'], 0)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    min="0"
+                    max="1000"
+                    name={`${name}|specialization|gluten`}
+                    onChange={this.onChange}
+                    value={data.getIn(['specialization', 'gluten'], 0)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    min="1"
+                    max="5"
+                    name={`${name}|rating`}
+                    onChange={this.onChange}
+                    value={data.get('rating')}
+                  />
+                </td>
               </tr>
             ))}
           </tbody>

@@ -30,6 +30,8 @@ export default class MealRequirements extends React.PureComponent {
           <span>Total Meals</span>
           <input
             type="number"
+            min="0"
+            max="1000"
             id="totalMeals"
             name="total"
             value={this.props.value.get('total')}
@@ -40,6 +42,8 @@ export default class MealRequirements extends React.PureComponent {
           <span>Vegetarian Meals</span>
           <input
             type="number"
+            min="0"
+            max="1000"
             id="vegetarianMeals"
             name="specialization|veggie"
             value={this.props.value.getIn(['specialization', 'veggie'])}
@@ -50,6 +54,8 @@ export default class MealRequirements extends React.PureComponent {
           <span>Gluten-free Meals</span>
           <input
             type="number"
+            min="0"
+            max="1000"
             id="glutenFreeMeals"
             name="specialization|gluten"
             value={this.props.value.getIn(['specialization', 'gluten'])}
