@@ -33,6 +33,6 @@ export default class OrderBruteForce extends OrderBase {
       }
     }
 
-    return restaurants.reduce((acc, next) => ({ ...acc, [next.getName()]: next.getOrders() }), {});
+    return this.formatOrder(restaurants);
   }
 }

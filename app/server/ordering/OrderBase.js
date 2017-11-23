@@ -41,4 +41,25 @@ export default class OrderBase extends MealBase {
     // Return the flattened restaurants after sorting by rating;
     return restaurants.sort((a, b) => b.getRating() - a.getRating());
   }
+
+  formatOrder = (restaurants) => {
+    const { order, ratingData } = restaurants.reduce((acc, next) => {
+      const rawOrder = next.getOrders();
+      const orderCount = (rawOrder.other + rawOrder.veggie + rawOrder.gluten);
+      return {
+        order: {
+          ...acc.order,
+          [next.getName()]: rawOrder,
+        },
+        ratingData: {
+          count: acc.ratingData.count + orderCount,
+          totalRating: acc.ratingData.totalRating + (orderCount * next.getRating()),
+        },
+      };
+    }, { order: {}, ratingData: { count: 0, totalRating: 0 } });
+    return {
+      order,
+      rating: Math.round((ratingData.totalRating * 10) / ratingData.count) / 10,
+    };
+  }
 }

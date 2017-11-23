@@ -27,8 +27,11 @@ describe('Brute Force', () => {
     const r2 = new Restaurant('Test 2', 3, 6);
     const order = new OrderBruteForce(10);
     expect(order.calculateOrders(r1, r2)).to.deep.equal({
-      'Test 1': { other: 6, veggie: 0, gluten: 0 },
-      'Test 2': { other: 4, veggie: 0, gluten: 0 },
+      order: {
+        'Test 1': { other: 6, veggie: 0, gluten: 0 },
+        'Test 2': { other: 4, veggie: 0, gluten: 0 },
+      },
+      rating: 3,
     });
   });
 
@@ -37,8 +40,11 @@ describe('Brute Force', () => {
     const r2 = new Restaurant('Test 2', 3, 6, { veggie: 1, gluten: 5 });
     const order = new OrderBruteForce(0, { veggie: 3, gluten: 5 });
     expect(order.calculateOrders(r1, r2)).to.deep.equal({
-      'Test 1': { other: 0, veggie: 2, gluten: 0 },
-      'Test 2': { other: 0, veggie: 1, gluten: 5 },
+      order: {
+        'Test 1': { other: 0, veggie: 2, gluten: 0 },
+        'Test 2': { other: 0, veggie: 1, gluten: 5 },
+      },
+      rating: 3,
     });
   });
 
@@ -47,8 +53,11 @@ describe('Brute Force', () => {
     const r2 = new Restaurant('Test 2', 3, 6, { veggie: 6 });
     const order = new OrderBruteForce(0, { veggie: 6, gluten: 6 });
     expect(order.calculateOrders(r1, r2)).to.deep.equal({
-      'Test 1': { other: 0, veggie: 0, gluten: 6 },
-      'Test 2': { other: 0, veggie: 6, gluten: 0 },
+      order: {
+        'Test 1': { other: 0, veggie: 0, gluten: 6 },
+        'Test 2': { other: 0, veggie: 6, gluten: 0 },
+      },
+      rating: 3,
     });
   });
 
@@ -58,9 +67,12 @@ describe('Brute Force', () => {
     const r3 = new Restaurant('Test 3', 5, 6, { veggie: 3, gluten: 3 });
     const order = new OrderBruteForce(6, { veggie: 4, gluten: 4 });
     expect(order.calculateOrders(r1, r2, r3)).to.deep.equal({
-      'Test 1': { other: 2, veggie: 0, gluten: 0 },
-      'Test 2': { other: 4, veggie: 1, gluten: 1 },
-      'Test 3': { other: 0, veggie: 3, gluten: 3 },
+      order: {
+        'Test 1': { other: 2, veggie: 0, gluten: 0 },
+        'Test 2': { other: 4, veggie: 1, gluten: 1 },
+        'Test 3': { other: 0, veggie: 3, gluten: 3 },
+      },
+      rating: 4.3,
     });
   });
 });
