@@ -44,4 +44,4 @@ const order = new OrderBruteForce(
 );
 
 const result = order.calculateOrders(...restaurants);
-console.log(result);
+console.log(result); // eslint-disable-line no-console
