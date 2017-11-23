@@ -6,5 +6,6 @@ export default class Restaurant extends MealBase {
     this._name = name;
   }
 
+  getName() { return this._name; }
   getRemainingOther() { return this._meals; }
 }

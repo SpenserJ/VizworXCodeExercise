@@ -13,10 +13,10 @@ export default class OrderBruteForce extends OrderBase {
     const loopRestaurants = (specializationOrder) => {
       specializationOrder.forEach((specialization) => {
         restaurants.forEach((restaurant) => {
-          if (this[`getRemaining${capFirstLetter(specialization)}`]() === 0) {
-            return;
+          while (this[`getRemaining${capFirstLetter(specialization)}`]() > 0) {
+            // Try to order a meal, and if it fails, stop the loop
+            if (this.orderMeal(restaurant, specialization) === false) { break; }
           }
-          this.orderMeal(restaurant, specialization);
         });
       });
 
@@ -30,6 +30,6 @@ export default class OrderBruteForce extends OrderBase {
       }
     }
 
-    return true;
+    return restaurants.reduce((acc, next) => ({ ...acc, [next.getName()]: next.getOrders() }), {});
   }
 }

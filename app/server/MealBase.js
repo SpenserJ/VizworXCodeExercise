@@ -10,11 +10,15 @@ export default class MealBase {
     this._meals = meals;
     this._veggie = veggie;
     this._gluten = gluten;
+    this._orders = { other: 0, veggie: 0, gluten: 0 };
   }
 
   getRemainingMeals() { return this._meals; }
   getRemainingVeggie() { return Math.min(this._meals, this._veggie); }
   getRemainingGluten() { return Math.min(this._meals, this._gluten); }
+  // Instead of using Immutable.js for a single piece of logic, I feel it is
+  // cleaner to just spread the object to prevent mutation in this instance.
+  getOrders() { return { ...this._orders }; }
 
   orderMeal(specialized = 'other') {
     if (allowedMeals.includes(specialized) === false) {
@@ -24,8 +28,11 @@ export default class MealBase {
     if (specialized !== 'other' && this[`getRemaining${capFirstLetter(specialized)}`]() <= 0) {
       return false;
     }
+
     this._meals -= 1;
     if (specialized !== 'other') { this[`_${specialized}`] -= 1; }
+    this._orders[specialized] += 1;
+
     return true;
   }
 }
