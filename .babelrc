@@ -1,4 +1,17 @@
 {
-  "presets": ["env"],
-  "plugins": ["transform-object-rest-spread", "transform-class-properties"]
+  "presets": [
+    ["env", {
+      "targets": {
+        "node": "current",
+        "browsers": "last 2 versions"
+      },
+      "modules": false
+    }],
+    "react"
+  ],
+  "plugins": [
+    "react-hot-loader/babel",
+    "transform-object-rest-spread",
+    "transform-class-properties"
+  ]
 }
