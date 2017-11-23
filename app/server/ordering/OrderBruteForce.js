@@ -25,6 +25,9 @@ export default class OrderBruteForce extends OrderBase {
     };
 
     if (loopRestaurants(['veggie', 'gluten', 'other']) === false) {
+      // Reset the restaurants before we process it in the opposite priority.
+      restaurants.forEach(restaurant => restaurant.reset());
+      this.reset();
       if (loopRestaurants(['gluten', 'veggie', 'other']) === false) {
         return false;
       }

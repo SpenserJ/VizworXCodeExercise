@@ -10,9 +10,14 @@ export default class MealBase {
     if (veggie > meals) { throw new Error('Veggie meals cannot exceed total meals'); }
     if (gluten > meals) { throw new Error('Gluten meals cannot exceed total meals'); }
 
-    this._meals = meals;
-    this._veggie = veggie;
-    this._gluten = gluten;
+    this._initialValues = { meals, veggie, gluten };
+    this.reset();
+  }
+
+  reset() {
+    this._meals = this._initialValues.meals;
+    this._veggie = this._initialValues.veggie;
+    this._gluten = this._initialValues.gluten;
     this._orders = { other: 0, veggie: 0, gluten: 0 };
   }
 

@@ -31,4 +31,24 @@ describe('Brute Force', () => {
       'Test 2': { other: 4, veggie: 0, gluten: 0 },
     });
   });
+
+  it('should successfully order specialized meals', () => {
+    const r1 = new Restaurant('Test 1', 6, { veggie: 2 });
+    const r2 = new Restaurant('Test 2', 6, { veggie: 1, gluten: 5 });
+    const order = new OrderBruteForce(0, { veggie: 3, gluten: 5 });
+    expect(order.calculateOrders(r1, r2)).to.deep.equal({
+      'Test 1': { other: 0, veggie: 2, gluten: 0 },
+      'Test 2': { other: 0, veggie: 1, gluten: 5 },
+    });
+  });
+
+  it('should successfully order specialized meals if the priority needs to be flipped', () => {
+    const r1 = new Restaurant('Test 1', 6, { veggie: 3, gluten: 6 });
+    const r2 = new Restaurant('Test 2', 6, { veggie: 6 });
+    const order = new OrderBruteForce(0, { veggie: 6, gluten: 6 });
+    expect(order.calculateOrders(r1, r2)).to.deep.equal({
+      'Test 1': { other: 0, veggie: 0, gluten: 6 },
+      'Test 2': { other: 0, veggie: 6, gluten: 0 },
+    });
+  });
 });
