@@ -1,6 +1,8 @@
 /* eslint-env mocha */
 import { expect } from 'chai';
 
+// Mark tests as a dependency, so that they execute first
+import './MealBase';
 
 import Restaurant from '../../../../app/server/Restaurant';
 
