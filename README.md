@@ -27,7 +27,7 @@ For the given input, select the best possible meal orders with reasonable assump
 
 * Code for processing the logic of selecting meals from restaurants is in `app/server/`.
 * Tests are in `test/integration/` and `test/unit/`, with unit tests being relative to their code in `app/server/`
-* `app/server/index.js` contains a simple implementation for calling `OrderBruteForce` with a specific input, and can be executed with `npm start`
+* `app/server/index.js` contains a simple Express server with a POST API on `/computeOrder` for calling `OrderBruteForce` with a specific input
 
 ## Tooling
 
@@ -37,12 +37,21 @@ For the given input, select the best possible meal orders with reasonable assump
 * Chai/Mocha
 * Nodemon
 * ESLint with AirBnB configuration
+* html-webpack-plugin - Easily generate HTML with webpack scripts automatically injected
+* Immutable.JS
+* Webpack
+* react-hot-loader - Integrates with Webpack for easy hot-reloading of React components
+* SASS
 
 ## Running
 
+* `npm build` - Clean and build the complete system
+* `npm build:browser` - Webpack the frontend code
+* `npm build:server` - Babel the backend code
 * `npm run lint` - Execute ESLint on `app/` and `test/`
 * `npm run lint:watch` - Monitor changes to files and automatically run `npm run lint` when they change
 * `npm run test` - Execute the Mocha/Chai Tests
 * `npm run test:watch` - Monitor changes to files and automatically run `npm run test` when they change
-* `npm run dev:server` - Monitor changes to files and automatically restart the server when they change
-* `npm start` - Run the server logic
+* `npm run dev:browser` - Monitor changes to the files and automatically hot-reload the browser when they change. This launches a webpack-dev-server on [http://localhost:8080](http://localhost:8080), that can be used to view the web interface
+* `npm run dev:server` - Monitor changes to files and automatically restart the server when they change. This launches an Express server for the API on [http://localhost:8081](http://localhost:8081)
+* `npm start` - Build the complete system and run the server. You will be able to load the web interface via [http://localhost:8081](http://localhost:8081) at this point

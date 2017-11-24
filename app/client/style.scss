@@ -1,0 +1,50 @@
+body {
+  font-family: 'Droid Sans';
+  padding: 32px;
+}
+
+label {
+  display: block;
+  > span {
+    padding-right: 8px;
+  }
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pageSplit {
+  flex-grow: 1;
+}
+
+table th, table td {
+  padding: 8px;
+  > * { width: 100%; }
+}
+
+span.error {
+  display: block;
+  border: 1px dotted red;
+  color: red;
+  background: #fcc;
+  padding: 4px;
+  margin: 8px 0;
+}
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-top-color: #333;
+  animation: spinner .6s linear infinite;
+}
