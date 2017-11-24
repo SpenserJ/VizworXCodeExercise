@@ -17,14 +17,14 @@ module.exports = {
     path.resolve(__dirname, 'app/client/index.jsx'),
   ],
   devServer: {
-    contentBase: './dist',
+    contentBase: './dist/client/',
     hot: true,
     proxy: {
       '/computeOrder': 'http://localhost:8081',
     },
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(['dist/client/']),
     new HtmlWebpackPlugin({
       title: 'VizworX Code Exercise',
       template: path.resolve(__dirname, 'app/client/index.html'),
@@ -34,7 +34,7 @@ module.exports = {
   ],
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist/client/'),
   },
   module: {
     rules: [

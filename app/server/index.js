@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 
@@ -6,6 +7,7 @@ import OrderBruteForce from './ordering/OrderBruteForce';
 
 const app = express();
 app.use(bodyParser.json());
+app.use(express.static(path.resolve(__dirname, '../client/')));
 
 app.post('/computeOrder', (req, res) => {
   try {
