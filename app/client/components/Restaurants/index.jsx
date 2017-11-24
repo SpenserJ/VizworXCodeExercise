@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Map } from 'immutable';
+import { fromJS, Map } from 'immutable';
+import memoize from 'lodash.memoize';
 
 const noop = () => {};
 
@@ -10,6 +11,11 @@ export default class Restaurants extends React.PureComponent {
     onChange: PropTypes.func.isRequired,
     value: PropTypes.instanceOf(Map).isRequired,
   };
+
+  constructor() {
+    super();
+    this.state = { newRestaurant: '' };
+  }
 
   onChange = (e) => {
     e.preventDefault();
@@ -21,6 +27,38 @@ export default class Restaurants extends React.PureComponent {
       },
     });
   }
+
+  deleteRestaurant = memoize(name => (e) => {
+    e.preventDefault();
+    this.props.onChange({
+      preventDefault: noop,
+      target: {
+        name: this.props.name,
+        value: this.props.value.delete(name),
+      },
+    });
+  });
+
+  updateNewRestaurant = (e) => {
+    e.preventDefault();
+    this.setState({ newRestaurant: e.target.value });
+  };
+
+  addRestaurant = (e) => {
+    e.preventDefault();
+    this.props.onChange({
+      preventDefault: noop,
+      target: {
+        name: [this.props.name, this.state.newRestaurant.replace(/|/g, '')],
+        value: fromJS({
+          total: 0,
+          specialization: {},
+          rating: 3,
+        }),
+      },
+    });
+    this.setState({ newRestaurant: '' });
+  };
 
   render() {
     return (
@@ -80,9 +118,34 @@ export default class Restaurants extends React.PureComponent {
                     value={data.get('rating')}
                   />
                 </td>
+                <td>
+                  <input
+                    type="button"
+                    onClick={this.deleteRestaurant(name)}
+                    value="Delete"
+                  />
+                </td>
               </tr>
             ))}
           </tbody>
+          <tfoot>
+            <tr>
+              <td>
+                <input
+                  type="text"
+                  value={this.state.newRestaurant}
+                  onChange={this.updateNewRestaurant}
+                />
+              </td>
+              <td>
+                <input
+                  type="button"
+                  onClick={this.addRestaurant}
+                  value="Add"
+                />
+              </td>
+            </tr>
+          </tfoot>
         </table>
       </div>
     );

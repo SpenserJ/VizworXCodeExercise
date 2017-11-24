@@ -37,9 +37,12 @@ export default class App extends React.PureComponent {
     };
   }
 
-  onChange = e => this.setState({
-    value: this.state.value.setIn(e.target.name, e.target.value),
-  });
+  onChange = (e) => {
+    e.preventDefault();
+    this.setState({
+      value: this.state.value.setIn([].concat(e.target.name), e.target.value),
+    });
+  };
 
   submit = (e) => {
     e.preventDefault();
@@ -67,6 +70,15 @@ export default class App extends React.PureComponent {
             result,
           },
         });
+      })
+      .catch(() => {
+        this.setState({
+          status: {
+            pending: false,
+            error: true,
+            result: { error: 'Failed to communicate with server' },
+          },
+        });
       });
   }
 
@@ -79,7 +91,7 @@ export default class App extends React.PureComponent {
         : <pre>{JSON.stringify(status.result, null, '  ')}</pre>;
     }
     return (
-      <div>
+      <form>
         <h1>VizworX Code Exercise</h1>
         <div className="container">
           <MealRequirements
@@ -104,7 +116,7 @@ export default class App extends React.PureComponent {
             />
           )}
         {output}
-      </div>
+      </form>
     );
   }
 }
